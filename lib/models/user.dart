@@ -1,0 +1,48 @@
+class User {
+  final String id;
+  final String name;
+  final String email;
+  final String role;
+  final String? avatar;
+  final String? phone;
+  final DateTime createdAt;
+
+  User({
+    required this.id,
+    required this.name,
+    required this.email,
+    required this.role,
+    this.avatar,
+    this.phone,
+    required this.createdAt,
+  });
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      email: json['email'] as String,
+      role: json['role'] as String,
+      avatar: json['avatar'] as String?,
+      phone: json['phone'] as String?,
+      createdAt: DateTime.parse(json['created_at'] as String),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'email': email,
+      'role': role,
+      'avatar': avatar,
+      'phone': phone,
+      'created_at': createdAt.toIso8601String(),
+    };
+  }
+
+  bool get isAdmin => role == 'admin';
+  bool get isManager => role == 'manager';
+  bool get isEngineer => role == 'engineer';
+  bool get isSupport => role == 'support';
+}
